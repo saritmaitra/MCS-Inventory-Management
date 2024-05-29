@@ -1,19 +1,20 @@
 # -*- coding: utf-8 -*-
 
 class Product:
-    def __init__(self, name, purchase_cost, lead_time, selling_price, starting_stock, mu, sigma_d, probability, order_cost, holding_cost, expected_demand, sigma_lt, annual_demand):
+    def __init__(self, name, purchase_cost, lead_time, selling_price, starting_stock, mu, sigma_d, 
+                 probability, order_cost, holding_cost, expected_demand, sigma_lt, annual_demand):
         self.name = name
         self.purchase_cost = purchase_cost
         self.lead_time = lead_time
         self.selling_price = selling_price
         self.starting_stock = starting_stock
         self.mu = mu
-        self.sigma_d = sigma_d  # Demand standard deviation
+        self.sigma_d = sigma_d  
         self.probability = probability
         self.order_cost = order_cost
         self.holding_cost = holding_cost
         self.expected_demand = expected_demand
-        self.sigma_lt = sigma_lt  # Standard deviation over lead time
+        self.sigma_lt = sigma_lt  
         self.annual_demand = annual_demand
 
 def calculate_safety_stock(max_daily_sales, max_lead_time, avg_daily_sales, avg_lead_time):
@@ -28,7 +29,7 @@ def daily_demand(mean, sd, probability):
 
 def monte_carlo_simulation(product, review_period=30, z_score=1.65):
     inventory = 0
-    mean = np.log(product.mu)  # Log of mean demand
+    mean = np.log(product.mu)  
     sd = product.sigma_d  # Standard deviation of demand
     lead_time = product.lead_time
 
@@ -163,10 +164,18 @@ def sensitivity_analysis(products, num_simulations=1000):
         plt.show()
 
 products = [
-    Product(name='PrA', purchase_cost=12, lead_time=9, selling_price=16.10, starting_stock=2750, mu=103.50, sigma_d=37.32, probability=0.76, order_cost=1000, holding_cost=0.2*12, expected_demand=705, sigma_lt=165.01, annual_demand=28670),
-    Product(name='PrB', purchase_cost=7, lead_time=6, selling_price=8.60, starting_stock=22500, mu=648.55, sigma_d=26.45, probability=1.00, order_cost=1200, holding_cost=0.2*7, expected_demand=3891, sigma_lt=64.78, annual_demand=237370),
-    Product(name='PrC', purchase_cost=6, lead_time=15, selling_price=10.20, starting_stock=5200, mu=201.68, sigma_d=31.08, probability=0.70, order_cost=1000, holding_cost=0.2*6, expected_demand=2266, sigma_lt=383.33, annual_demand=51831),
-    Product(name='PrD', purchase_cost=37, lead_time=12, selling_price=68, starting_stock=1400, mu=150.06, sigma_d=3.21, probability=0.23, order_cost=1200, holding_cost=0.2*37, expected_demand=785, sigma_lt=299.92, annual_demand=13056)
+    Product(name='PrA', purchase_cost=12, lead_time=9, selling_price=16.10, starting_stock=2750, 
+            mu=103.50, sigma_d=37.32, probability=0.76, order_cost=1000, holding_cost=0.2*12, 
+            expected_demand=705, sigma_lt=165.01, annual_demand=28670),
+    Product(name='PrB', purchase_cost=7, lead_time=6, selling_price=8.60, starting_stock=22500, mu=648.55, 
+            sigma_d=26.45, probability=1.00, order_cost=1200, holding_cost=0.2*7, expected_demand=3891, 
+            sigma_lt=64.78, annual_demand=237370),
+    Product(name='PrC', purchase_cost=6, lead_time=15, selling_price=10.20, starting_stock=5200, mu=201.68, 
+            sigma_d=31.08, probability=0.70, order_cost=1000, holding_cost=0.2*6, expected_demand=2266, 
+            sigma_lt=383.33, annual_demand=51831),
+    Product(name='PrD', purchase_cost=37, lead_time=12, selling_price=68, starting_stock=1400, mu=150.06, 
+            sigma_d=3.21, probability=0.23, order_cost=1200, holding_cost=0.2*37, expected_demand=785, 
+            sigma_lt=299.92, annual_demand=13056)
 ]
 
 sensitivity_analysis(products, num_simulations=1000)
