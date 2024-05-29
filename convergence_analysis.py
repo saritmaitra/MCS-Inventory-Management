@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 
-
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -48,7 +47,7 @@ def daily_demand(mean, sd, probability):
     else:
         return np.exp(np.random.normal(mean, sd))
 
-def monte_carlo_ray(M, product, review_period=30, z_score=1.65):
+def MCS(M, product, review_period=30, z_score=1.65):
     inventory = product.starting_stock
     mean = product.mean
     sd = product.sd
@@ -116,7 +115,7 @@ def monte_carlo_ray(M, product, review_period=30, z_score=1.65):
 
     return data
 
-def calculate_profit(data, product):
+def profit_calculation(data, product):
     unit_cost = product.unit_cost
     selling_price = product.selling_price
     holding_cost = product.holding_cost
@@ -139,9 +138,9 @@ results = {}
 for product in products:
     profit_list = []
     reorder_quantity_list = []
-    for _ in range(1000):  # Run 1000 simulations for each product
-        data = monte_carlo_ray(M=10000, product=product)
-        profit = calculate_profit(data, product)
+    for _ in range(1000):  # 1000 simulations for each product
+        data = MCS(M=10000, product=product)
+        profit = profit_calculation(data, product)
         profit_list.append(profit)
         reorder_quantity_list.extend(data['reorder_quantities'])  # Collect reorder quantities
     results[f'Pr{product.i}'] = {
