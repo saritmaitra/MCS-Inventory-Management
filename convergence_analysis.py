@@ -53,13 +53,13 @@ def MCS(M, product, review_period=30, z_score=1.65):
     sd = product.sd
     lead_time = product.lead_time
     probability = product.probability
-    demand_lead = product.expected_demand_lead_time  # Corrected attribute name
+    demand_lead = product.expected_demand_lead_time  
 
     # Importance sampling parameters
-    high_demand_value = 2 * mean  # Adjust as needed based on the specific scenario
-    weights = [0.8, 0.2]  # Adjust weights to emphasize high demand values
+    high_demand_value = 2 * mean  # can be adjusted as needed 
+    weights = [0.8, 0.2]  # can be adjusted to emphasize high demand values
     means = [mean, high_demand_value]
-    sds = [sd, sd]  # Assuming same standard deviation for simplicity
+    sds = [sd, sd]  # assuming same standard deviation for simplicity
 
     # max_daily_sales and avg_daily_sales using the new sampling distribution
     daily_sales = [np.random.normal(means[i], sds[i]) for i in np.random.choice(len(weights), size=365, p=weights)]  # Corrected list comprehension
@@ -78,11 +78,11 @@ def MCS(M, product, review_period=30, z_score=1.65):
     stock_out = 0
     counter = 0
     order_placed = False
-    data = {'inv_level': [], 'daily_demand': [], 'units_sold': [], 'units_lost': [], 'orders': [], 'reorder_quantities': []}  # Added 'reorder_quantities'
+    data = {'inv_level': [], 'daily_demand': [], 'units_sold': [], 'units_lost': [], 'orders': [], 'reorder_quantities': []}  
 
     for day in range(1, 365):
-        # Sample demand from the new distribution
-        day_demand = [np.random.normal(means[i], sds[i]) for i in np.random.choice(len(weights), size=365, p=weights)]  # Corrected list comprehension
+        # demand from the new distribution
+        day_demand = [np.random.normal(means[i], sds[i]) for i in np.random.choice(len(weights), size=365, p=weights)]  
         if day_demand != 0:  # Add this condition to skip printing when demand is zero
             data['daily_demand'].append(day_demand)
 
@@ -91,7 +91,7 @@ def MCS(M, product, review_period=30, z_score=1.65):
             q = max(q, int(0.2 * mean))  # Minimum order quantity
             order_placed = True
             data['orders'].append(q)
-            data['reorder_quantities'].append(q)  # Store reorder quantity
+            data['reorder_quantities'].append(q)  
 
         if order_placed:
             counter += 1
@@ -101,7 +101,7 @@ def MCS(M, product, review_period=30, z_score=1.65):
             order_placed = False
             counter = 0
 
-        for demand in day_demand:  # Iterate over each demand value for the current day
+        for demand in day_demand:  
             if inventory - demand >= 0:
                 data['units_sold'].append(demand)
                 inventory -= demand
@@ -142,7 +142,7 @@ for product in products:
         data = MCS(M=10000, product=product)
         profit = profit_calculation(data, product)
         profit_list.append(profit)
-        reorder_quantity_list.extend(data['reorder_quantities'])  # Collect reorder quantities
+        reorder_quantity_list.extend(data['reorder_quantities'])  
     results[f'Pr{product.i}'] = {
         'profit_list': profit_list,
         'reorder_quantity_list': reorder_quantity_list
