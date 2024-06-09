@@ -164,16 +164,16 @@ def sensitivity_analysis(products, num_simulations=1000):
         plt.show()
 
 products = [
-    Product(name='PrA', purchase_cost=12, lead_time=9, selling_price=16.10, starting_stock=2750, 
+    Product(name='Pr1', purchase_cost=12, lead_time=9, selling_price=16.10, starting_stock=2750, 
             mu=103.50, sigma_d=37.32, probability=0.76, order_cost=1000, holding_cost=0.2*12, 
             expected_demand=705, sigma_lt=165.01, annual_demand=28670),
-    Product(name='PrB', purchase_cost=7, lead_time=6, selling_price=8.60, starting_stock=22500, mu=648.55, 
+    Product(name='Pr2', purchase_cost=7, lead_time=6, selling_price=8.60, starting_stock=22500, mu=648.55, 
             sigma_d=26.45, probability=1.00, order_cost=1200, holding_cost=0.2*7, expected_demand=3891, 
             sigma_lt=64.78, annual_demand=237370),
-    Product(name='PrC', purchase_cost=6, lead_time=15, selling_price=10.20, starting_stock=5200, mu=201.68, 
+    Product(name='Pr3', purchase_cost=6, lead_time=15, selling_price=10.20, starting_stock=5200, mu=201.68, 
             sigma_d=31.08, probability=0.70, order_cost=1000, holding_cost=0.2*6, expected_demand=2266, 
             sigma_lt=383.33, annual_demand=51831),
-    Product(name='PrD', purchase_cost=37, lead_time=12, selling_price=68, starting_stock=1400, mu=150.06, 
+    Product(name='P4', purchase_cost=37, lead_time=12, selling_price=68, starting_stock=1400, mu=150.06, 
             sigma_d=3.21, probability=0.23, order_cost=1200, holding_cost=0.2*37, expected_demand=785, 
             sigma_lt=299.92, annual_demand=13056)
 ]
